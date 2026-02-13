@@ -45,8 +45,8 @@ class VolumeMonitorService : Service() {
     }
 
     private fun startVolumeObserver() {
-        volumeObserver = VolumeObserver(this) {
-            scheduleVolumeRestore()
+        volumeObserver = VolumeObserver(this) { reason ->
+            scheduleVolumeRestore(reason)
         }
 
         contentResolver.registerContentObserver(
@@ -68,7 +68,7 @@ class VolumeMonitorService : Service() {
      * Планирует восстановление громкости через 1.5 часа.
      * Использует WorkManager для надёжности - таймер сработает даже после перезагрузки.
      */
-    private fun scheduleVolumeRestore() {
+    private fun scheduleVolumeRestore(reason: String) {
         val workRequest = OneTimeWorkRequestBuilder<VolumeRestoreWorker>()
             .setInitialDelay(RESTORE_DELAY_MINUTES, TimeUnit.MINUTES)
             .addTag(WORK_TAG)
@@ -80,11 +80,11 @@ class VolumeMonitorService : Service() {
             workRequest
         )
 
-        Log.d(TAG, "Volume restore scheduled in $RESTORE_DELAY_MINUTES minutes")
+        Log.d(TAG, "Volume restore scheduled in $RESTORE_DELAY_MINUTES minutes. Reason: $reason")
 
         // Обновляем уведомление с информацией о таймере
         val notification = createNotification(
-            "Громкость будет восстановлена через ${RESTORE_DELAY_MINUTES / 60.0} ч"
+            "$reason. Восстановление через 1.5 ч"
         )
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.notify(NOTIFICATION_ID, notification)

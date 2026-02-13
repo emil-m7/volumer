@@ -1,15 +1,11 @@
 package com.volumer
 
 import android.Manifest
-import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -73,13 +69,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Проверка разрешения Do Not Disturb
-        val notificationManager = getSystemService(NotificationManager::class.java)
-        if (!notificationManager.isNotificationPolicyAccessGranted) {
-            showDndPermissionDialog()
-            return
-        }
-
         if (permissionsNeeded.isNotEmpty()) {
             ActivityCompat.requestPermissions(
                 this,
@@ -97,22 +86,7 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         }
-
-        // Проверка разрешения Do Not Disturb
-        val notificationManager = getSystemService(NotificationManager::class.java)
-        return notificationManager.isNotificationPolicyAccessGranted
-    }
-
-    private fun showDndPermissionDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Требуется разрешение")
-            .setMessage("Для управления режимом звонка необходимо разрешение \"Доступ к режиму Не беспокоить\"")
-            .setPositiveButton("Открыть настройки") { _, _ ->
-                val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                startActivity(intent)
-            }
-            .setNegativeButton("Отмена", null)
-            .show()
+        return true
     }
 
     private fun startMonitoringService() {
