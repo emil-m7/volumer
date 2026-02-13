@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volumer"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="48dp" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Автоматическое восстановление громкости через 1.5 часа после выключения звука"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/statusCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionText">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/serviceStatusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Статус: Остановлен"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/timerStatusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Таймер: Не активен"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/toggleServiceButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:text="Запустить мониторинг"
+        android:textSize="16sp"
+        app:cornerRadius="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusCard" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelTimerButton"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="Отменить таймер"
+        android:enabled="false"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggleServiceButton" />
+
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="При выключении звука звонка, приложение автоматически включит его через 1.5 часа"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
